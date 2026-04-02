@@ -1,0 +1,76 @@
+{
+  "mcpServers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.github.com/mcp"
+    },
+    "slack": {
+      "type": "http",
+      "url": "https://mcp.slack.com/mcp"
+    },
+    "notion": {
+      "type": "http",
+      "url": "https://mcp.notion.com/mcp"
+    },
+    "linear": {
+      "type": "http",
+      "url": "https://mcp.linear.app/mcp"
+    },
+    "atlassian": {
+      "type": "http",
+      "url": "https://mcp.atlassian.com/v1/mcp"
+    },
+    "huggingface": {
+      "type": "http",
+      "url": "https://huggingface.co/mcp?login&gradio=none"
+    },
+    "consensus": {
+      "type": "http",
+      "url": "https://mcp.consensus.app/mcp"
+    },
+    "tavily": {
+      "type": "http",
+      "url": "https://mcp.tavily.com/mcp"
+    },
+    "biorxiv": {
+      "type": "http",
+      "url": "https://hcls.mcp.claude.com/biorxiv/mcp"
+    },
+    "factset": {
+      "type": "http",
+      "url": "https://mcp.factset.com/content/v1"
+    },
+    "posthog": {
+      "type": "http",
+      "url": "https://mcp.posthog.com/mcp"
+    },
+    "aws-marketplace": {
+      "type": "http",
+      "url": "https://marketplace-mcp.us-east-1.api.aws/mcp"
+    },
+    "cloudflare": {
+      "type": "http",
+      "url": "https://bindings.mcp.cloudflare.com/mcp"
+    },
+    "quartr": {
+      "type": "http",
+      "url": "https://mcp.quartr.com/mcp"
+    },
+    "pagerduty": {
+      "type": "http",
+      "url": "https://mcp.pagerduty.com/mcp"
+    },
+    "datadog": {
+      "type": "http",
+      "url": "https://mcp.datadoghq.com/mcp"
+    },
+    "figma": {
+      "type": "http",
+      "url": "https://figma.com/mcp"
+    },
+    "shadcn": {
+      "type": "http",
+      "url": "https://mcp.shadcn.com/mcp"
+    }
+  }
+}

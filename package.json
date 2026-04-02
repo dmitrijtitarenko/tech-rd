@@ -1,0 +1,30 @@
+{
+  "name": "tech-rd",
+  "version": "0.1.0",
+  "description": "Full-spectrum technology R&D intelligence for Claude. Research technologies, generate tech radars, analyze competitive landscapes, and make data-driven technology decisions with structured intelligence across 37 skills, 12 commands, 5 specialist agents, and 18 MCP integrations.",
+  "directories": {
+    "example": "examples",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "pytest tests/ -v"
+  },
+  "keywords": [
+    "tech-research",
+    "R&D",
+    "technology-radar",
+    "competitive-intelligence",
+    "AI-ML",
+    "cybersecurity",
+    "architecture",
+    "trend-analysis",
+    "due-diligence"
+  ],
+  "author": "Dmitrij Tytarenko <dtytarenko666@gmail.com> (https://github.com/dtytarenko)",
+  "license": "MIT",
+  "dependencies": {
+    "@mermaid-js/mermaid-cli": "11.12.0",
+    "beautiful-mermaid": "1.1.3",
+    "mermaid-isomorphic": "3.1.0"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "entries": [
+    {
+      "name": "Rust",
+      "quadrant": "Languages",
+      "ring": "Trial",
+      "isNew": false,
+      "description": "Systems language with memory safety"
+    },
+    {
+      "name": "TypeScript",
+      "quadrant": "Languages",
+      "ring": "Adopt",
+      "isNew": false,
+      "description": "Typed superset of JavaScript"
+    },
+    {
+      "name": "React",
+      "quadrant": "Frameworks",
+      "ring": "Adopt",
+      "isNew": false,
+      "description": "JavaScript UI library"
+    },
+    {
+      "name": "Svelte",
+      "quadrant": "Frameworks",
+      "ring": "Assess",
+      "isNew": true,
+      "description": "Compiler-based UI framework"
+    },
+    {
+      "name": "Kubernetes",
+      "quadrant": "Infrastructure",
+      "ring": "Adopt",
+      "isNew": false,
+      "description": "Container orchestration platform"
+    },
+    {
+      "name": "PostgreSQL",
+      "quadrant": "Data",
+      "ring": "Adopt",
+      "isNew": false,
+      "description": "Relational database"
+    },
+    {
+      "name": "DuckDB",
+      "quadrant": "Data",
+      "ring": "Assess",
+      "isNew": true,
+      "description": "Embedded OLAP database"
+    },
+    {
+      "name": "Java",
+      "quadrant": "Languages",
+      "ring": "Hold",
+      "isNew": false,
+      "description": "Legacy but stable platform"
+    }
+  ],
+  "quadrants": [
+    "Languages",
+    "Frameworks",
+    "Infrastructure",
+    "Data"
+  ],
+  "rings": [
+    "Adopt",
+    "Trial",
+    "Assess",
+    "Hold"
+  ]
+}

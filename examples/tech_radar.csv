@@ -1,0 +1,9 @@
+name,quadrant,ring,is_new,description
+Rust,Languages,Trial,False,Systems language with memory safety
+TypeScript,Languages,Adopt,False,Typed superset of JavaScript
+React,Frameworks,Adopt,False,JavaScript UI library
+Svelte,Frameworks,Assess,True,Compiler-based UI framework
+Kubernetes,Infrastructure,Adopt,False,Container orchestration platform
+PostgreSQL,Data,Adopt,False,Relational database
+DuckDB,Data,Assess,True,Embedded OLAP database
+Java,Languages,Hold,False,Legacy but stable platform

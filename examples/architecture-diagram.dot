@@ -1,0 +1,24 @@
+digraph {
+  rankdir=LR
+  node [shape=box]
+
+  Client [shape=oval, label="Client Application"]
+  Gateway [label="API Gateway"]
+  Auth [label="Auth Service"]
+  Order [label="Order Service"]
+  Payment [label="Payment Service"]
+  Queue [label="Message Queue"]
+  Cache [label="Cache Layer"]
+  DB [shape=cylinder, label="Database"]
+
+  Client -> Gateway [label="HTTP"]
+  Gateway -> Auth [label="validate"]
+  Gateway -> Order [label="route"]
+  Auth -> Order [label="token"]
+  Order -> Queue [label="async"]
+  Order -> Cache [label="cache"]
+  Order -> DB [label="persist"]
+  Queue -> Payment [label="process"]
+  Payment -> DB [label="store"]
+  Cache -> DB [label="reads"]
+}

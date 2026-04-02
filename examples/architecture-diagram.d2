@@ -1,0 +1,31 @@
+API Gateway {
+  shape: oval
+}
+
+Auth Service {
+  shape: rect
+}
+
+Order Service {
+  shape: rect
+}
+
+Payment Service {
+  shape: rect
+}
+
+Message Queue {
+  shape: rect
+}
+
+Database {
+  shape: cylinder
+}
+
+API Gateway -> Auth Service: validate
+API Gateway -> Order Service: route
+Order Service -> Message Queue: async
+Order Service -> Database: persist
+Message Queue -> Payment Service: process
+Payment Service -> Database: store
+Auth Service -> Order Service: token

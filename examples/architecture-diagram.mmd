@@ -1,0 +1,20 @@
+graph LR
+  Client[Client Application]
+  Gateway[API Gateway]
+  Auth[Auth Service]
+  Order[Order Service]
+  Payment[Payment Service]
+  Queue[Message Queue]
+  Cache[Cache Layer]
+  DB[(Database)]
+
+  Client -->|HTTP| Gateway
+  Gateway -->|validate| Auth
+  Gateway -->|route| Order
+  Auth -->|token| Order
+  Order -->|async| Queue
+  Order -->|cache| Cache
+  Order -->|persist| DB
+  Queue -->|process| Payment
+  Payment -->|store| DB
+  Cache -->|reads| DB

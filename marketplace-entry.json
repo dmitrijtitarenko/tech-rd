@@ -1,0 +1,50 @@
+{
+  "name": "tech-rd",
+  "source": {
+    "source": "github",
+    "repo": "dtytarenko/tech-rd"
+  },
+  "description": "Full-spectrum technology R&D intelligence. Research any technology domain, generate tech radars, compare stacks, audit open-source projects, and synthesize competitive intelligence across 37 domains with computed analysis, interactive web dashboards, and IEEE-format reports.",
+  "version": "0.1.0",
+  "category": "engineering",
+  "keywords": [
+    "tech-research",
+    "R&D",
+    "technology-radar",
+    "competitive-intelligence",
+    "open-source",
+    "AI-ML",
+    "cybersecurity",
+    "architecture",
+    "trend-analysis",
+    "due-diligence",
+    "productivity",
+    "engineering",
+    "infrastructure",
+    "cloud",
+    "security",
+    "data-engineering",
+    "devops",
+    "fintech",
+    "biotech",
+    "quantum-computing"
+  ],
+  "author": {
+    "name": "Dmitrij Tytarenko",
+    "email": "dtytarenko666@gmail.com",
+    "url": "https://github.com/dtytarenko"
+  },
+  "homepage": "https://github.com/dtytarenko/tech-rd",
+  "repository": "https://github.com/dtytarenko/tech-rd",
+  "license": "MIT",
+  "components": {
+    "agents": 5,
+    "commands": 12,
+    "skills": 37,
+    "total": 54
+  },
+  "featured": false,
+  "sourceCodeUrl": "https://github.com/dtytarenko/tech-rd",
+  "screenshots": [],
+  "documentation": "https://github.com/dtytarenko/tech-rd#readme"
+}

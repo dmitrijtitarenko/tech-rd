@@ -1,6 +1,6 @@
 ---
 description: Deep multi-source technology research
-allowed-tools: Read, Grep, Bash, WebSearch, WebFetch, Agent
+allowed-tools: Read, Grep, Bash, WebSearch, WebFetch, ~~web research, ~~research, Agent
 argument-hint: [topic]
 ---
 
@@ -12,7 +12,7 @@ Execute deep research on any technology topic across multiple sources.
 
 1. **Scope & Clarify (MANDATORY — do NOT skip this step)**
    - Before doing ANY research, engage the user in a brief scoping conversation:
-     - If the request contains a URL, fetch and summarize it first
+     - If the request contains a URL, fetch and summarize it first. **Use `~~web research` (Tavily extract) for URL fetching — it handles more domains than WebFetch.** Only fall back to WebFetch if Tavily is unavailable
      - Summarize what you understood from their request (1-2 sentences)
      - Ask 2-3 targeted questions to narrow scope, surface assumptions, and understand their actual goal
      - Examples of good scoping questions:

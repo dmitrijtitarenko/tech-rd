@@ -357,11 +357,134 @@ Abstract text here (150-250 words).
 \end{document}
 ```
 
+
 ---
 
 ### Tier 3: Interactive Web (React + shadcn)
 
 Use a full Vite + React + Tailwind + shadcn project for interactive research deliverables. This is NOT a single JSX file — it requires a proper project structure with CSS variables, shadcn components, and Recharts.
+
+#### EXECUTABLE SCAFFOLDING WORKFLOW (MANDATORY — follow these steps exactly)
+
+When the user requests Interactive Web output, execute these steps in order using the Bash tool. Do NOT skip any step. Do NOT output a single .jsx file instead.
+
+**Step 1: Scaffold the project**
+
+```bash
+PROJECT_DIR="<output-directory>/research-dashboard"
+mkdir -p "$PROJECT_DIR/src/lib" "$PROJECT_DIR/src/components/ui"
+cd "$PROJECT_DIR"
+```
+
+**Step 2: Write package.json and install dependencies**
+
+```bash
+cat > package.json << 'EOF'
+{
+  "name": "tech-rd-research-dashboard",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.12.7",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^2.2.0",
+    "class-variance-authority": "^0.7.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "tailwindcss": "^3.4.0",
+    "postcss": "^8.4.35",
+    "autoprefixer": "^10.4.17",
+    "typescript": "~5.6.2",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1"
+  }
+}
+EOF
+npm install
+```
+
+**Step 3: Write config files (vite, tailwind, postcss, tsconfig)**
+
+Write each of these files using the Write tool or bash heredocs:
+- `vite.config.ts` — Vite 5 + react plugin + path alias
+- `tailwind.config.js` — Full CSS variable mapping (see below)
+- `postcss.config.js` — tailwindcss + autoprefixer
+- `tsconfig.json` and `tsconfig.app.json` — paths alias for `@/`
+- `index.html` — Google Fonts link + `<div id="root">` + RTL `dir="rtl"` on `<html>` if Arabic
+
+**Step 4: Write CSS variables (index.css) from the preset**
+
+Use the preset `b50cupeFP` decoded values. See "CSS Variables" section below.
+
+**Step 5: Write shadcn components from source (Card, Badge, Tabs)**
+
+Since `npx shadcn add` cannot access the shadcn registry from the sandbox, write the component source code directly. See "Inline shadcn Components" section below.
+
+**Step 6: Write the cn() utility**
+
+```bash
+cat > src/lib/utils.ts << 'EOF'
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+EOF
+```
+
+**Step 7: Write main.tsx entry point**
+
+```tsx
+import React from "react"
+import ReactDOM from "react-dom/client"
+import App from "./App"
+import "./index.css"
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
+```
+
+**Step 8: Write App.tsx with the research content**
+
+This is the main dashboard component. It MUST use:
+- shadcn Card, Badge, Tabs components (imported from `@/components/ui/`)
+- CSS variable chart colors: `hsl(var(--chart-1))` through `hsl(var(--chart-5))`
+- Semantic Tailwind classes only: `bg-background`, `text-foreground`, `bg-card`, etc.
+- NO hardcoded hex colors, NO `bg-blue-500` style classes
+- Dark mode toggle using `document.documentElement.classList.toggle("dark")`
+- See "Content Requirements" section below for minimum dashboard content
+
+**Step 9: Build and verify**
+
+```bash
+cd "$PROJECT_DIR"
+npm run build
+```
+
+If the build succeeds, the `dist/` folder contains a static site the user can open directly.
+If in Cowork, copy the project folder to the user's workspace.
+
+**Step 10: Provide run instructions to the user**
+
+Tell the user:
+```
+To view locally: cd research-dashboard && npm run dev
+To build static: npm run build (output in dist/)
+```
+
+---
 
 #### Decoding a shadcn Preset
 
@@ -375,10 +498,10 @@ Even if the command fails (e.g., egress blocked), the error message reveals the 
 
 ```
 style=lyra&baseColor=neutral&theme=neutral&iconLibrary=phosphor
-&font=playfair-display&menuColor=inverted-translucent&radius=default&chartColor=rose
+&font=playfair-display&menuColor=inverted-translucent&radius=default&chartColor=rose&rtl=true
 ```
 
-This tells you exactly which CSS variables, fonts, icon library, and radius to use.
+This tells you exactly which CSS variables, fonts, icon library, radius, and RTL to use.
 
 #### Cross-Platform Compatibility: Use Vite 5 + Tailwind v3
 
@@ -387,7 +510,7 @@ CRITICAL: Vite 8 uses `rolldown` which has native bindings (`@rolldown/binding-d
 **Project structure:**
 
 ```
-showcase-web-output/
+research-dashboard/
   src/
     index.css          # @import font, @tailwind directives, @layer base CSS variables
     main.tsx           # Entry point, imports index.css
@@ -396,37 +519,17 @@ showcase-web-output/
       utils.ts         # cn() utility from clsx + tailwind-merge
     components/
       ui/
-        card.tsx       # shadcn Card (border bg-card text-card-foreground shadow-sm)
-        badge.tsx      # shadcn Badge with variant support (default/secondary/destructive/outline)
-        tabs.tsx       # shadcn Tabs with TabsList/TabsTrigger/TabsContent
-  components.json      # shadcn CLI config (style, baseColor, chartColor, iconLibrary)
+        card.tsx       # shadcn Card
+        badge.tsx      # shadcn Badge
+        tabs.tsx       # shadcn Tabs
+  components.json      # shadcn CLI config
   tailwind.config.js   # Maps CSS vars to Tailwind utilities (Tailwind v3)
   postcss.config.js    # tailwindcss + autoprefixer (Tailwind v3)
   vite.config.ts       # Vite 5 + react plugin + path alias @/ -> ./src
-  index.html           # Google Fonts link for custom font
+  index.html           # Google Fonts link, RTL dir attribute
+  tsconfig.json        # base TS config
   tsconfig.app.json    # paths: { "@/*": ["./src/*"] }
   package.json         # vite ^5.4.0, tailwindcss ^3.4.0
-```
-
-**package.json dependencies (Vite 5 + Tailwind v3):**
-```json
-{
-  "devDependencies": {
-    "vite": "^5.4.0",
-    "@vitejs/plugin-react": "^4.2.1",
-    "tailwindcss": "^3.4.0",
-    "postcss": "^8.4.35",
-    "autoprefixer": "^10.4.17",
-    "typescript": "~5.6.2"
-  },
-  "dependencies": {
-    "react": "^18.3.1",
-    "recharts": "^2.12.7",
-    "clsx": "^2.1.0",
-    "tailwind-merge": "^2.2.0",
-    "class-variance-authority": "^0.7.0"
-  }
-}
 ```
 
 **postcss.config.js (required for Tailwind v3):**
@@ -450,6 +553,134 @@ export default defineConfig({
 })
 ```
 
+#### Inline shadcn Components (write these directly — do NOT rely on npx shadcn add)
+
+**src/components/ui/card.tsx:**
+```tsx
+import * as React from "react"
+import { cn } from "@/lib/utils"
+
+const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn("border bg-card text-card-foreground shadow-sm", className)} {...props} />
+  )
+)
+Card.displayName = "Card"
+
+const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn("flex flex-col space-y-1.5 p-6", className)} {...props} />
+  )
+)
+CardHeader.displayName = "CardHeader"
+
+const CardTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+  ({ className, ...props }, ref) => (
+    <h3 ref={ref} className={cn("text-2xl font-semibold leading-none tracking-tight", className)} {...props} />
+  )
+)
+CardTitle.displayName = "CardTitle"
+
+const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
+  ({ className, ...props }, ref) => (
+    <p ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
+  )
+)
+CardDescription.displayName = "CardDescription"
+
+const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+  )
+)
+CardContent.displayName = "CardContent"
+
+const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn("flex items-center p-6 pt-0", className)} {...props} />
+  )
+)
+CardFooter.displayName = "CardFooter"
+
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
+```
+
+**src/components/ui/badge.tsx:**
+```tsx
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils"
+
+const badgeVariants = cva(
+  "inline-flex items-center border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  {
+    variants: {
+      variant: {
+        default: "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
+        secondary: "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        destructive: "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
+        outline: "text-foreground",
+      },
+    },
+    defaultVariants: { variant: "default" },
+  }
+)
+
+export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof badgeVariants> {}
+
+function Badge({ className, variant, ...props }: BadgeProps) {
+  return <div className={cn(badgeVariants({ variant }), className)} {...props} />
+}
+
+export { Badge, badgeVariants }
+```
+
+**src/components/ui/tabs.tsx:**
+```tsx
+import * as React from "react"
+import { cn } from "@/lib/utils"
+
+/* Lightweight tabs without Radix dependency */
+interface TabsContextValue { value: string; onValueChange: (v: string) => void }
+const TabsCtx = React.createContext<TabsContextValue>({ value: "", onValueChange: () => {} })
+
+function Tabs({ defaultValue, children, className, ...props }: { defaultValue: string } & React.HTMLAttributes<HTMLDivElement>) {
+  const [value, setValue] = React.useState(defaultValue)
+  return (
+    <TabsCtx.Provider value={{ value, onValueChange: setValue }}>
+      <div className={cn("", className)} {...props}>{children}</div>
+    </TabsCtx.Provider>
+  )
+}
+
+function TabsList({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn("inline-flex h-10 items-center justify-center gap-1 bg-muted p-1 text-muted-foreground", className)} {...props} />
+}
+
+function TabsTrigger({ value, className, ...props }: { value: string } & React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  const ctx = React.useContext(TabsCtx)
+  return (
+    <button
+      className={cn(
+        "inline-flex items-center justify-center whitespace-nowrap px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        ctx.value === value ? "bg-background text-foreground shadow-sm" : "hover:bg-background/50",
+        className
+      )}
+      onClick={() => ctx.onValueChange(value)}
+      {...props}
+    />
+  )
+}
+
+function TabsContent({ value, className, ...props }: { value: string } & React.HTMLAttributes<HTMLDivElement>) {
+  const ctx = React.useContext(TabsCtx)
+  if (ctx.value !== value) return null
+  return <div className={cn("mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2", className)} {...props} />
+}
+
+export { Tabs, TabsList, TabsTrigger, TabsContent }
+```
+
 #### CSS Variables by Base Color
 
 shadcn offers multiple base colors. Each changes the hue family used for all neutral surfaces.
@@ -468,10 +699,11 @@ In Tailwind v3, CSS variables map to utilities via the config file (NOT `@theme`
 ```js
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
-        sans: ["'Playfair Display'", "Georgia", "serif"],   // from preset font
+        sans: ["'Playfair Display'", "Georgia", "serif"],
         heading: ["'Playfair Display'", "Georgia", "serif"],
       },
       colors: {
@@ -522,9 +754,9 @@ export default {
 }
 ```
 
-#### CSS Variables: Neutral Base + Rose Charts (Reference Implementation)
+#### CSS Variables: Neutral Base + Rose Charts (Preset b50cupeFP Reference)
 
-The example below shows the EXACT CSS for `--preset b50cupeFP` (Lyra + Neutral + Rose):
+The example below shows the EXACT CSS for `--preset b50cupeFP` (Lyra + Neutral + Rose + RTL):
 
 **`src/index.css`:**
 
@@ -640,6 +872,34 @@ IMPORTANT NOTES:
 - Rose chart colors use the Tailwind rose scale (hue 347-355)
 - Lyra "Radius: None" = `--radius: 0rem` (all rounded-* classes resolve to 0)
 
+#### RTL Support
+
+When the preset includes `--rtl` (as in `b50cupeFP`), or the content is bilingual with Arabic:
+
+1. Add `dir="rtl"` to `<html>` in `index.html` (or toggle dynamically)
+2. Use Tailwind logical properties: `ps-4` (padding-start) instead of `pl-4`, `ms-2` instead of `ml-2`, `text-start` instead of `text-left`
+3. For bidirectional support (Arabic + English mixed), use `dir="auto"` on text containers
+4. Test charts render correctly in RTL — Recharts handles this natively
+
+**index.html with RTL:**
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+  <title>Research Dashboard</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
+```
+
 #### Chart Color Reference by Palette
 
 | Palette | chart-1 | chart-2 | chart-3 | chart-4 | chart-5 |
@@ -694,6 +954,7 @@ When the preset specifies a custom font (e.g., Playfair Display):
 - NO hardcoded colors (no `bg-blue-500`, no `text-slate-700`, no hex codes, no `rgb()`)
 - ALWAYS pair background + foreground: `bg-primary text-primary-foreground`
 - Border radius via `rounded-md` / `rounded-lg` (maps to --radius from preset)
+- Use logical properties for RTL: `ps-*`, `pe-*`, `ms-*`, `me-*`, `text-start`, `text-end`
 
 #### Charts (Recharts with CSS variables):
 
@@ -727,17 +988,6 @@ The web output must be COMPREHENSIVE, not a small summary. Minimum requirements:
 - References section with formatted citations
 - Dark mode toggle (shadcn approach: `document.documentElement.classList.toggle("dark")`)
 - Footer with generation metadata
-
-**Example working project:** See `examples/showcase-web-output/` for a complete buildable Vite 5 project.
-
-#### cn() utility (`src/lib/utils.ts`):
-```ts
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
-```
 
 #### Tailwind v4 Alternative (if Vite 8 + platform-specific native bindings are available)
 

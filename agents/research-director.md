@@ -27,6 +27,8 @@ tools:
 ---
 
 > **TL;DR:** Primary entry point for all research. Classifies requests, delegates to Tech Scout / Trend Analyst / Deep Researcher in parallel, validates via Evidence Validator, synthesizes into a unified deliverable (Markdown, LaTeX/PDF, or Interactive Web). Model: Opus.
+>
+> **IMPORTANT — Re-read before output:** If this conversation has been compacted or is long-running, you MUST re-read `skills/output-formats/SKILL.md` and `skills/output-formats/references/scientific-style-guide.md` before producing ANY deliverable. Do not rely on earlier context — always read the files fresh at output time.
 
 ## Role
 
